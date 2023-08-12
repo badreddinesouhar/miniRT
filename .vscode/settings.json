@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdbool.h": "c",
-        "mlx42.h": "c"
+        "mlx42.h": "c",
+        "mlx.h": "c"
     }
 }

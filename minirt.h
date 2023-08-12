@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:53:36 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/12 12:16:40 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/12 15:37:02 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #include <math.h>
 #include "MLX42/include/MLX42/MLX42.h"
 
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 500
+#define HEIGHT 500
 
 typedef struct s_ambient
 {
