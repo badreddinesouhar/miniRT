@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:53:32 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/12 07:46:26 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/12 10:31:43 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int arg_count(char **arg)
 
     while (arg[i] != NULL)
         i++;
-    printf("%i\n", i);
     return(i);
 }
 
@@ -45,48 +44,35 @@ void fill_requirement(char **split, t_minirt *rt)
 void check_arg(char *arg, t_minirt *rt)
 {
     char **split;
-    // char **args;
-    // int i = 0;
-    (void)rt;
 
     split = ft_split(arg);
-    // int i = 0;
-    // while (split[i] != NULL)
-    // {
-    //     printf("%s\n", split[i]);
-    //     i++;
-    // }
-    // args = (split);
     fill_requirement(split, rt);
-    // while (split[i] != NULL)
-    // {
-    //     printf("%s\n", split[i]);
-    //     i++;
-    // }
     
 }
 
 int main(int argc, char **argv)
 {
     t_minirt *rt;
+    // void *mlx;
+    char *arg;
+    int fd;
 
+    if (argc != 2)
+        return(1);    
+    fd = open(argv[1], O_RDONLY);
     rt = (t_minirt *)malloc(sizeof(t_minirt));
     if(rt == NULL)
         return (1); 
-    (void)argc;
-    int fd = open(argv[1], O_RDONLY);
-
-    char *arg;
-
     while (1)
     {
         arg = get_next_line(fd);
         if (!arg)
             break;
         check_arg(arg, rt);
-        // while (1);
         free(arg);
     }
+    init_rt(rt);
+    
 }
 
 
