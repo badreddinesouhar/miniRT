@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:53:32 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/12 10:31:43 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/13 09:19:44 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ void check_arg(char *arg, t_minirt *rt)
     char **split;
 
     split = ft_split(arg);
-    fill_requirement(split, rt);
-    
+    fill_requirement(split, rt);   
 }
 
 int main(int argc, char **argv)
 {
     t_minirt *rt;
-    // void *mlx;
     char *arg;
     int fd;
 
@@ -74,10 +72,3 @@ int main(int argc, char **argv)
     init_rt(rt);
     
 }
-
-
-// void mainimage(vec4 *fragcolor, vec2 fragcoord, vec2 iResolution)
-// {
-//     vec2 uv = vec2(fragcoord.x / iResolution.x, fragcoord.y / iResolution.y);
-//     *fragcolor = vec4(uv.x, uv.y, 0.0, 1.0);
-// }

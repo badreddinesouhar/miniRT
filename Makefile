@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I/MLX/include
+CFLAGS =  -I/MLX/include
 LDFLAGS = -L"/goinfre/bsouhar/homebrew/Cellar/glfw/3.3.8/lib" -L MLX42/
 LDLIBS = -lglfw MLX42/build/libmlx42.a
 
