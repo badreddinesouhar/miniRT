@@ -6,19 +6,11 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 10:14:37 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/14 16:40:09 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/23 03:39:21 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// void	my_mlx_pixel_put(mlx_t *data, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-// 	*(unsigned int *)dst = color;
-// }
 
 double	calculate_mins(t_minirt *rt, double r, double x, double y)
 {
@@ -45,14 +37,29 @@ double	calculate_quadra(t_minirt *rt, double r, double x, double y, double z)
 	double	a;
 	double	b;
 	double	c;
-	double	discriminant;
+	double	dis;
 
 	a = x * x + y * y + z * z;
 	b = 2.0 * (x * rt->cam->xc + y * rt->cam->yc + z * rt->cam->zc);
 	c = rt->cam->xc * rt->cam->xc + rt->cam->yc * rt->cam->yc + rt->cam->zc
 		* rt->cam->zc - r * r;
-	discriminant = b * b - 4 * a * c;
-	return (discriminant);
+	dis = b * b - 4 * a * c;
+	return (dis);
+}
+
+double	calculate_quadra2(t_minirt *rt, double r, double x, double y, double z)
+{
+	double	a;
+	double	b;
+	double	c;
+	double	dis;
+
+	a = x * x + y * y + z * z;
+	b = 2.0 * (x * rt->cam->xc + y * rt->cam->yc + z * rt->cam->zc);
+	c = rt->cam->xc * rt->cam->xc + rt->cam->yc * rt->cam->yc + rt->cam->zc
+		* rt->cam->zc - r * r + 1;
+	dis = b * b - 4 * a * c;
+	return (dis);
 }
 
 double	calculate_t(t_minirt *rt, double x, double y, double z, double q)
@@ -64,32 +71,49 @@ double	calculate_t(t_minirt *rt, double x, double y, double z, double q)
 	t = 0.0;
 	a = x * x + y * y + z * z;
 	b = (rt->light->xl * x) + (rt->light->yl * y) + (rt->light->zl * z);
+	// printf("a-->%f\n", a);
+	// printf("b-->%f\n", b);
+	// printf("q--->%f\n", q);
 	if (q == 0)
 		t = -b / (2 * a);
 	else if (q > 0)
 		t = ((-b) - sqrt(q)) / (2 * a);
 	return (t);
 }
+double	calculate_t(t_minirt *rt, double x, double y, double z, double q)
+{
+	double	t;
+	double	a;
+	double	b;
+
+	t = 0.0;
+	a = x * x + y * y + z * z;
+	b = (rt->light->xl * x) + (rt->light->yl * y) + (rt->light->zl * z);
+	// printf("a-->%f\n", a);
+	// printf("b-->%f\n", b);
+	// printf("q--->%f\n", q);
+	if (q == 0)
+		t = -b / (2 * a);
+	else if (q > 0)
+		t = ((-b) + sqrt(q)) / (2 * a);
+	return (t);
+}
+
 
 int	create_color(int red, int green, int blue)
 {
 	return ((red << 16) | (green << 8) | blue);
 }
-
+ 
 void	sphere(mlx_t *mlx, t_minirt *rt)
 {
 	mlx_image_t	*image;
 	double		q;
 	double		t;
-	double		nx;
-	double		ny;
-	double		nz;
-	int			color_value;
 
 	double x, y, z, r;
 	double z1, z2;
 	q = 0.0;
-	t = 0.0;
 	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 	r = rt->sp->diam / 2;
 	y = 0;
@@ -98,27 +122,22 @@ void	sphere(mlx_t *mlx, t_minirt *rt)
 		x = 0;
 		while (x < WIDTH)
 		{
-			z1 = calculate_mins(rt, r, x, y);
-			z2 = calculate_plus(rt, r, x, y);
-			z = z1;
-			while (z <= z2)
+		z1 = calculate_mins(rt, r, x, y);
+		z2 = calculate_plus(rt, r, x, y);
+		z = z2;
+			q = calculate_quadra(rt, r, x, y, z);
+			if (q >= 0)
 			{
-				q = calculate_quadra(rt, r, x, y, z);
-				if (q > 0)
-				{
-					t = calculate_t(rt, x, y, z, q);
-					// nx = (x + t * rt->cam->xc - rt->sp->sp_idx->x) / r;
-					// ny = (y + t * rt->cam->yc - rt->sp->sp_idx->y) / r;
-					// nz = (z + t * rt->cam->zc - rt->sp->sp_idx->z) / r;
-					// double dot_product = nx * rt->light->xl + ny* rt->light->yl + nz * rt->light->zl;
-					// color_value = (int)(1);
-					mlx_put_pixel(image, x, y, create_color(color_value,
-							color_value, color_value));
-				}
-				else if (q < 0)
-					mlx_put_pixel(image, x, y, 0xFFFFFF);
-				z++;
+				float t[] = malloc {
+					(calculate_t),
+					(calculate_t1),
+				};
+				vector3 hitposition = rayorigin + raydrection * t[i]
+				vector3 normal = hitposition - vexctor3.zero;
+				mlx_put_pixel(image, x, y, 0xFFFFFF);
 			}
+			else if (q < 0)
+				mlx_put_pixel(image, x, y, 0xED2415);
 			x++;
 		}
 		y++;

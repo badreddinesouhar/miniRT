@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:53:36 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/16 20:46:10 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/18 07:21:27 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+#include <math.h> 
 
 # define WIDTH 500
 # define HEIGHT 500

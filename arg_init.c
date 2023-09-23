@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 07:43:40 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/15 21:42:57 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/20 00:38:39 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	init_sp(char **arg, t_sp **sp)
 	(*sp)->sp_idx->y = ft_atof(arg[2]);
 	(*sp)->sp_idx->z = ft_atof(arg[3]);
 	(*sp)->diam = ft_atof(arg[4]);
+	// printf("%f\n", (*sp)->diam);
 	(*sp)->rsp = ft_atoi(arg[5]);
 	(*sp)->gsp = ft_atoi(arg[6]);
 	(*sp)->bsp = ft_atoi(arg[7]);

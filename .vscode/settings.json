@@ -3,6 +3,7 @@
         "stdbool.h": "c",
         "mlx42.h": "c",
         "mlx.h": "c",
-        "minirt.h": "c"
+        "minirt.h": "c",
+        "stdio.h": "c"
     }
 }

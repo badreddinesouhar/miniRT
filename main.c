@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 12:53:32 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/16 20:50:02 by bsouhar          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   main.c                                             :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2023/08/11 12:53:32 by bsouhar           #+#    #+#             */
+// /*   Updated: 2023/08/16 20:59:10 by bsouhar          ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
 #include "minirt.h"
 
@@ -30,7 +30,7 @@ void	fill_requirement(char **split, t_minirt *rt)
 		init_ambient_light(split, &rt->ambient);
 	else if (!ft_strncmp(split[0], "C", 1) && arg_count(split) == 8)
 		init_camera(split, &rt->cam);
-	else if (!ft_strncmp(split[0], "L", 1) && arg_count(split) == 9)
+	else if (!ft_strncmp(split[0], "L", 1) && arg_count(split) == 8)
 		init_light(split, &rt->light);
 	else if (!ft_strncmp(split[0], "pl", 2) && arg_count(split) == 10)
 		init_pl(split, &rt->pl);
@@ -71,4 +71,5 @@ int	main(int argc, char **argv)
 		free(arg);
 	}
 	init_rt(rt);
+	// free_all(rt);
 }
