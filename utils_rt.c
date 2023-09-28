@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 06:35:37 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/13 18:51:29 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/29 00:51:45 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,39 @@ char	**ft_split(char *str)
 	}
 	split[k] = NULL;
 	return (split);
+}
+
+char *ft_strtrim(char *str) {
+    if (!str)
+        return NULL;
+
+    int i = 0;
+    int j = 0;
+    int len = 0;
+    int trimming = 1; // Indicates whether we are in trimming mode (leading spaces)
+
+    while (str[i]) {
+        if (str[i] == ' ' || str[i] == '\t' || str[i] == '\v') {
+            if (!trimming) {
+                trimming = 1;
+                str[j++] = ' ';
+                len++;
+            }
+        } else {
+            trimming = 0;
+            str[j++] = str[i];
+            len++;
+        }
+        i++;
+    }
+
+    // Handle trailing spaces
+    while (j > 0 && (str[j - 1] == ' ' || str[j - 1] == '\t' || str[j - 1] == '\v')) {
+        j--;
+        len--;
+    }
+
+    str[j] = '\0';
+
+    return str;
 }

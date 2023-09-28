@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:53:36 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/09/23 03:50:50 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/28 17:38:06 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ char			**ft_split(char *str);
 int				ft_isdigit(int c);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
+char *ft_strtrim(char *str);
 
 // atoi and a to float(double)
 int				ft_atoi(const char *str);

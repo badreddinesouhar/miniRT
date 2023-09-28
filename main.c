@@ -45,8 +45,12 @@ void	fill_requirement(char **split, t_minirt *rt)
 void	check_arg(char *arg, t_minirt *rt)
 {
 	char	**split;
+	char *str;
 
-	split = ft_split(arg);
+	str = ft_strtrim(arg);
+	if (str == NULL)
+		return ;
+	split = ft_split(str);
 	fill_requirement(split, rt);
 }
 
@@ -65,11 +69,15 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		arg = get_next_line(fd);
+		// add strtrim
+		// if arg = =NULL
+		// continue
 		if (!arg)
 			break ;
 		check_arg(arg, rt);
 		free(arg);
 	}
 	init_rt(rt);
+	// free(rt);
 	// free_all(rt);
 }
