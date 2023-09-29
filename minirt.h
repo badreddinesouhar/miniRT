@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:53:36 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/09/29 18:09:24 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:32:18 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@
 #define HALF_HEIGHT = HEIGHT/2
 
 typedef struct s_index t_vector;
+
+typedef struct s_vec2
+{
+	double x;
+	double y;
+} t_vec2;
+
+typedef struct s_vec4
+{
+	double x;
+	double y;
+	double z;
+	double w;
+} t_vec4;
 
 typedef struct s_ambient
 {
