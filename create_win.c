@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 10:14:37 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/09/29 00:52:39 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/29 01:51:51 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,22 @@ double	calculate_quadra(t_minirt *rt, double r, double x, double y, double z)
 	return (dis);
 }
 
+double	calculate_quadra_light(t_minirt *rt, double r, double x, double y, double z)
+{
+	double	a;
+	double	b;
+	double	c;
+	double	dis;
+
+	a = x * x + y * y + z * z;
+	b = 2.0 * (x * rt->light->xl + y * rt->light->yl + z * rt->light->zl);
+	c = rt->light->xl * rt->light->xl + rt->light->yl * rt->light->yl + rt->light->zl
+		* rt->light->zl - r * r;
+	dis = b * b - 4 * a * c;
+	return (dis);
+}
+
+
 double	calculate_quadra2(t_minirt *rt, double r, double x, double y, double z)
 {
 	double	a;
@@ -71,7 +87,7 @@ double	calculate_t(t_minirt *rt, double x, double y, double z, double q)
 
 	t = 0.0;
 	a = x * x + y * y + z * z;
-	b = (rt->light->xl * x) + (rt->light->yl * y) + (rt->light->zl * z);
+	b = (rt->cam->xc * x) + (rt->cam->yc * y) + (rt->cam->yc * z);
 	if (q == 0)
 		t = -b / (2 * a);
 	else if (q > 0)
@@ -82,7 +98,43 @@ int	create_color(int red, int green, int blue)
 {
 	return ((red << 16) | (green << 8) | blue);
 }
- 
+
+int rgb_from_normal(t_vector normal)
+{
+    int r = (int)((normal.x + 1.0) * 127.5);
+    int g = (int)((normal.y + 1.0) * 127.5);
+    int b = (int)((normal.z + 1.0) * 127.5);
+
+    return (r << 16) | (g << 8) | b;
+}
+
+t_vector normalize(t_vector *v)
+{
+	double		len;
+	t_vector	*tmp;
+
+	tmp = (t_vector *)malloc(sizeof(t_vector));
+	len = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
+	tmp->x = v->x / len;
+	tmp->y = v->y / len;
+	tmp->z = v->z / len;
+	return (*tmp);
+}
+
+t_vector normal_at(t_minirt *rt, t_vector *point)
+{
+	t_vector	normal;
+	t_vector	*tmp;
+
+	tmp = (t_vector *)malloc(sizeof(t_vector));
+	tmp->x = point->x - rt->sp->sp_idx->x;
+	tmp->y = point->y - rt->sp->sp_idx->y;
+	tmp->z = point->z - rt->sp->sp_idx->z;
+	normal = normalize(tmp);
+	free(tmp);
+	return (normal);
+}
+
 void	sphere(mlx_t *mlx, t_minirt *rt)
 {
 	mlx_image_t	*image;
@@ -107,7 +159,45 @@ void	sphere(mlx_t *mlx, t_minirt *rt)
 			if (q >= 0)
 			{
                 t = calculate_t(rt, x, y, z, q);
-				mlx_put_pixel(image, x, y, 0xFFFFFF);
+				// q = calculate_quadra_light(rt, r, x, y, z);
+				// if (q >= 0)
+				// {
+				// 	printf("q = %f\n", q);
+				// 	t = calculate_t(rt, x, y, z, q);
+				// 	t_vector *point;
+				// 	t_vector *hitpoint;
+				// 	hitpoint = (t_vector *)malloc(sizeof(t_vector));
+				// 	point = (t_vector *)malloc(sizeof(t_vector));
+				// 	hitpoint->x = rt->light->xl + t * x;
+				// 	hitpoint->y = rt->light->yl + t * y;
+				// 	hitpoint->z = rt->light->zl + t * z;
+				// 	// point->y = y;
+				// 	// point->x = x;
+				// 	// point->z = z;
+				// 	t_vector normal;	
+				// 	normal = normal_at(rt, hitpoint);
+				// 	// int color = rgb_from_normal(normal); 
+				// 	mlx_put_pixel(image, x, y, 0);
+				// 	free(point);
+				// 	free(hitpoint);
+				// }
+				// else
+				// 	t = 0;
+				t_vector *point;
+				t_vector *hitpoint;
+				hitpoint = (t_vector *)malloc(sizeof(t_vector));
+				point = (t_vector *)malloc(sizeof(t_vector));
+				hitpoint->x = rt->light->xl + t * x;
+				hitpoint->y = rt->light->yl + t * y;
+				hitpoint->z = rt->light->zl + t * z;
+				point->y = y;
+				point->x = x;
+				point->z = z;
+				t_vector normal;
+				normal = normal_at(rt, point);
+				int color = rgb_from_normal(normal);
+				mlx_put_pixel(image, x, y, color);
+				free(point);
 			}
 			else if (q < 0)
 				mlx_put_pixel(image, x, y, 0xED2415);

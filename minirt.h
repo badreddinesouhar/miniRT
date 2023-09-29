@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:53:36 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/09/28 17:38:06 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/29 01:06:17 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 #define HALF_WIDTH = WIDTH/2
 #define HALF_HEIGHT = HEIGHT/2
+
+typedef struct s_index t_vector;
 
 typedef struct s_ambient
 {
