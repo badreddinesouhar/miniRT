@@ -5,7 +5,8 @@
         "mlx.h": "c",
         "minirt.h": "c",
         "stdio.h": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "stdint.h": "c"
     },
     "cmake.sourceDirectory": "/Users/bsouhar/Desktop/miniRT/MLX42"
 }

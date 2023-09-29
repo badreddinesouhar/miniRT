@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 10:14:37 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/09/29 01:51:51 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/09/29 18:15:48 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,6 @@ double	calculate_quadra_light(t_minirt *rt, double r, double x, double y, double
 	return (dis);
 }
 
-
-double	calculate_quadra2(t_minirt *rt, double r, double x, double y, double z)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	dis;
-
-	a = x * x + y * y + z * z;
-	b = 2.0 * (x * rt->cam->xc + y * rt->cam->yc + z * rt->cam->zc);
-	c = rt->cam->xc * rt->cam->xc + rt->cam->yc * rt->cam->yc + rt->cam->zc
-		* rt->cam->zc - r * r + 1;
-	dis = b * b - 4 * a * c;
-	return (dis);
-}
 
 double	calculate_t(t_minirt *rt, double x, double y, double z, double q)
 {
@@ -139,7 +124,7 @@ void	sphere(mlx_t *mlx, t_minirt *rt)
 {
 	mlx_image_t	*image;
 	double		q;
-	double		t;
+	// double		t;
 
 	double x, y, z, r;
 	double z1, z2;
@@ -147,6 +132,7 @@ void	sphere(mlx_t *mlx, t_minirt *rt)
 	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 	r = rt->sp->diam / 2;
 	y = 0;
+	mlx_put_pixel(image, rt->light->xl, rt->light->yl, 0xFFFFFF);
 	while (y < HEIGHT)
 	{
 		x = 0;
@@ -154,50 +140,27 @@ void	sphere(mlx_t *mlx, t_minirt *rt)
 		{
 		z1 = calculate_mins(rt, r, x, y);
 		z2 = calculate_plus(rt, r, x, y);
-		z = z2;
+		z = z2; 
 			q = calculate_quadra(rt, r, x, y, z);
 			if (q >= 0)
-			{
-                t = calculate_t(rt, x, y, z, q);
-				// q = calculate_quadra_light(rt, r, x, y, z);
-				// if (q >= 0)
-				// {
-				// 	printf("q = %f\n", q);
-				// 	t = calculate_t(rt, x, y, z, q);
-				// 	t_vector *point;
-				// 	t_vector *hitpoint;
-				// 	hitpoint = (t_vector *)malloc(sizeof(t_vector));
-				// 	point = (t_vector *)malloc(sizeof(t_vector));
-				// 	hitpoint->x = rt->light->xl + t * x;
-				// 	hitpoint->y = rt->light->yl + t * y;
-				// 	hitpoint->z = rt->light->zl + t * z;
-				// 	// point->y = y;
-				// 	// point->x = x;
-				// 	// point->z = z;
-				// 	t_vector normal;	
-				// 	normal = normal_at(rt, hitpoint);
-				// 	// int color = rgb_from_normal(normal); 
-				// 	mlx_put_pixel(image, x, y, 0);
-				// 	free(point);
-				// 	free(hitpoint);
-				// }
-				// else
-				// 	t = 0;
-				t_vector *point;
-				t_vector *hitpoint;
-				hitpoint = (t_vector *)malloc(sizeof(t_vector));
-				point = (t_vector *)malloc(sizeof(t_vector));
-				hitpoint->x = rt->light->xl + t * x;
-				hitpoint->y = rt->light->yl + t * y;
-				hitpoint->z = rt->light->zl + t * z;
-				point->y = y;
-				point->x = x;
-				point->z = z;
-				t_vector normal;
-				normal = normal_at(rt, point);
-				int color = rgb_from_normal(normal);
-				mlx_put_pixel(image, x, y, color);
-				free(point);
+			{ 
+				double q1 = calculate_quadra_light(rt, r, x, y, z);
+				if (q1 >= 0) {
+					t_vector *point;
+					point = (t_vector *)malloc(sizeof(t_vector));
+					point->x = x;
+					point->y = y;
+					point->z = z;
+					t_vector normal;
+					normal = normal_at(rt, point);
+					int color = rgb_from_normal(normal);
+					mlx_put_pixel(image, x, y, color);
+					free(point);
+				}
+				else if (q1 < 0) {
+					// printf("q1 < 0\n");
+					mlx_put_pixel(image, x, y, 0xFFFFFF);
+				}
 			}
 			else if (q < 0)
 				mlx_put_pixel(image, x, y, 0xED2415);
