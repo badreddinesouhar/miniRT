@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   atoif.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aet-tass <aet-tass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 06:50:25 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/12 08:24:29 by bsouhar          ###   ########.fr       */
+/*   Created: 2023/09/29 19:37:39 by aet-tass          #+#    #+#             */
+/*   Updated: 2023/10/02 01:09:35 by aet-tass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../minirt.h"
 
 int	error_check(const char *str, int i, int sign, long nb)
 {

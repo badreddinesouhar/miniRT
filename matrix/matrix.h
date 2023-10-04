@@ -1,15 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light.c                                            :+:      :+:    :+:   */
+/*   matrix.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aet-tass <aet-tass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 12:35:10 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/13 19:03:35 by bsouhar          ###   ########.fr       */
+/*   Created: 2023/10/02 00:21:32 by aet-tass          #+#    #+#             */
+/*   Updated: 2023/10/02 00:42:51 by aet-tass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef MATRIX_H
+#define MATRIX_H
+
+#include "../minirt.h"
 
 
+#define MATRIX_SIZE 4
+
+
+typedef struct
+{
+    double elements[MATRIX_SIZE][MATRIX_SIZE];
+	size_t size;
+} t_matrix;
+
+
+#endif

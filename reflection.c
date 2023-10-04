@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
+/*   reflection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aet-tass <aet-tass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 07:00:25 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/12 07:02:37 by bsouhar          ###   ########.fr       */
+/*   Created: 2023/09/22 03:16:02 by aet-tass          #+#    #+#             */
+/*   Updated: 2023/09/28 16:59:47 by aet-tass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
 
-	i = 0;
-	if (s)
-	{
-		while (s[i])
-		{
-			ft_putchar_fd(s[i], fd);
-			i++;
-		}
-	}
-}
-
-int	ft_isdigit(int c)
+t_vector	reflect(t_vector in, t_vector normal)
 {
-	return (c >= 48 && c <= 57);
-}
+	t_vector	multply;
+	t_vector	result;
 
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
+	multply = tuple_multiply(normal, tuple_dot(in, normal));
+	multply = tuple_multiply(multply, 2);
+	result = tuple_subtract(in, multply);
+	return (result);
 }

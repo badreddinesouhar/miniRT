@@ -1,30 +1,31 @@
-CC = cc -Wall -Wextra -Werror
-CFLAGS =  -I/MLX/include
-LDFLAGS = -L"/Users/bsouhar/goinfre/.brew/Cellar/glfw/3.3.8/lib" -L MLX42/
-LDLIBS = -lglfw MLX42/build/libmlx42.a
 
-CFILES = main.c get_next_line.c get_next_line_utils.c utils_rt.c atoif.c libft.c arg_init.c create_win.c light.c
-OBJDIR = obj
-OBJS = $(addprefix $(OBJDIR)/,$(CFILES:.c=.o))
-NAME = miniRT
+SRCS	= shade_hit.c get_next_line/get_next_line.c libft_utils/utils.c libft_utils/atoif.c\
+ sphere.c  matrix_transformations.c \
+  mlx.c  color.c reflection.c   shading.c camera.c material.c   minirt.c\
+   world.c parsing.c intersection/intersection.c intersection/intersect_objt.c\
+   matrix/matrix_init.c  matrix/matrix_rotation.c matrix/matrix_optn.c\
+   matrix/matrix_transf.c matrix/matrix_inverse.c libft_utils/linked_list_utils.c libft_utils/split.c\
+   tuples/init_tuples.c  tuples/tuples_compare.c tuples/tuples_opt.c     tuples/tuples_opt2.c ray/ray.c\
+   world/world.c material/phong_model.c plane.c cylinder.c
 
-all: $(NAME)
+OBJS	= ${SRCS:.c=.o}
+NAME	= minirt
+HEAD	= includes
+CC		= cc 
+CFLAGS	= 
+RM 		= rm -f
 
-$(OBJDIR):
-	@mkdir -p $(OBJDIR)
+all:	${NAME}
 
-$(OBJDIR)/%.o : %.c | $(OBJDIR)
-	@$(CC) $(CFLAGS) -c -o $@ $<
-
-$(NAME): $(OBJS)
-	@$(CC) $(LDFLAGS) $(OBJS) -o $(NAME) $(LDLIBS)
+${NAME}:	${OBJS}
+			$(CC) $(SRCS) -Lmlx -lmlx -framework OpenGL -framework AppKit  -o  ${NAME}
 
 clean:
-	@rm -rf $(OBJDIR)
+		${RM} ${OBJS}
 
-fclean: clean
-	@rm -f $(NAME)
+fclean:	clean
+		${RM} ${NAME}
 
-re: fclean all
+re:		fclean all
 
-.PHONY: all clean fclean re
+.PHONY:		all clean fclean re

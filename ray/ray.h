@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aet-tass <aet-tass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 16:31:09 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/09/16 16:39:48 by bsouhar          ###   ########.fr       */
+/*   Created: 2023/10/02 01:41:43 by aet-tass          #+#    #+#             */
+/*   Updated: 2023/10/02 01:43:13 by aet-tass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minirt.h>
+#ifndef RAY_H
+# define RAY_H
 
-// void free_all(t_minirt *rt) {
-//     if (rt->ambient)
-//         free(rt->ambient);
-// }
+#include "../minirt.h"
+
+
+typedef struct s_ray
+{
+	t_point		origin;
+	t_vector	direction;
+}	t_ray;
+
+
+#endif
